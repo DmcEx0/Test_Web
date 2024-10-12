@@ -18,8 +18,8 @@ public class SpritesLoader : MonoBehaviour
     private async UniTask LoadSpriteAsync(SpriteRenderer spriteRenderer, int number)
     {
         var loadOperation = Addressables.LoadAssetAsync<Sprite>(_assetReferences[number]);
-        
         await loadOperation.ToUniTask();
+        Debug.Log(loadOperation.Result + " - load operation result");
         
         spriteRenderer.sprite = loadOperation.Result;
     }
