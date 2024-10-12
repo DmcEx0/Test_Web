@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace TestWeb
 {
-    public class Button : MonoBehaviour, IPointerClickHandler
+    public class ButtonComponent : MonoBehaviour, IPointerClickHandler
     {
         private const string AnimationName = "anim";
 
