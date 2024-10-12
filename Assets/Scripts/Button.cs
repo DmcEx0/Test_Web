@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class Button : MonoBehaviour, IPointerClickHandler
 {
     private const string AnimationName = "anim";
 
-    [SerializeField] private LoadSprites _loadSprites;
+    [FormerlySerializedAs("_loadSprites")] [SerializeField] private SpritesLoader _spritesLoader;
     [SerializeField] private Animator _animator;
     
     private readonly int _animationHash = Animator.StringToHash(AnimationName);
@@ -15,6 +16,6 @@ public class Button : MonoBehaviour, IPointerClickHandler
         Debug.Log("Click");
         
         _animator.SetBool(_animationHash, true);
-        _loadSprites.Load();
+        _spritesLoader.LoadSprite();
     }
 }
