@@ -12,12 +12,19 @@ namespace TestWeb
     
         private readonly int _animationHash = Animator.StringToHash(AnimationName);
 
+        private bool _isPlaying;
+
         public void OnPointerClick(PointerEventData eventData) 
         {
-            Debug.Log("Click");
-        
+            if (_isPlaying == true)
+            {
+                return;
+            }
+            
             _animator.SetBool(_animationHash, true);
             _spritesLoader.LoadSprite();
+
+            _isPlaying = true;
         }
     }
 }
