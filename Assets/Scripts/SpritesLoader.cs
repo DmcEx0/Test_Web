@@ -27,12 +27,16 @@ namespace TestWeb
             }
         }
 
-        public void LoadSprite()
+        public async UniTask LoadAllSpritesAsync()
         {
+            var loadTasks = new List<UniTask>();
+            
             for (int i = 0; i < _sprites.Length; i++)
             {
-                LoadSpriteAsync(_sprites[i], i).Forget();
+                loadTasks.Add(LoadSpriteAsync(_sprites[i], i));
             }
+
+            await UniTask.WhenAll(loadTasks);
         }
     
         private async UniTask LoadSpriteAsync(SpriteRenderer spriteRenderer, int number)

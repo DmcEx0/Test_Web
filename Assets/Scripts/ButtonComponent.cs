@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -22,7 +23,7 @@ namespace TestWeb
             }
             
             _animator.SetBool(_animationHash, true);
-            _spritesLoader.LoadSprite();
+            _spritesLoader.LoadAllSpritesAsync().Forget();
 
             _isPlaying = true;
         }
