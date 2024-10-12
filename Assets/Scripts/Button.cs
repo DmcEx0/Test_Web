@@ -1,20 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Button : MonoBehaviour, IPointerClickHandler
+namespace TestWeb
 {
-    private const string AnimationName = "anim";
-
-    [SerializeField] private SpritesLoader _spritesLoader;
-    [SerializeField] private Animator _animator;
-    
-    private readonly int _animationHash = Animator.StringToHash(AnimationName);
-
-    public void OnPointerClick(PointerEventData eventData) 
+    public class Button : MonoBehaviour, IPointerClickHandler
     {
-        Debug.Log("Click");
+        private const string AnimationName = "anim";
+
+        [SerializeField] private SpritesLoader _spritesLoader;
+        [SerializeField] private Animator _animator;
+    
+        private readonly int _animationHash = Animator.StringToHash(AnimationName);
+
+        public void OnPointerClick(PointerEventData eventData) 
+        {
+            Debug.Log("Click");
         
-        _animator.SetBool(_animationHash, true);
-        _spritesLoader.LoadSprite();
+            _animator.SetBool(_animationHash, true);
+            _spritesLoader.LoadSprite();
+        }
     }
 }

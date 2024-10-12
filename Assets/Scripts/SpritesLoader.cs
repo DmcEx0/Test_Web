@@ -4,42 +4,45 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class SpritesLoader : MonoBehaviour
+namespace TestWeb
 {
-    [SerializeField] private SpriteRenderer[] _sprites;
-    [SerializeField] private AssetReference[] _assetReferences;
-
-    private List<AsyncOperationHandle> _operationHandles;
-
-    private void Start()
+    public class SpritesLoader : MonoBehaviour
     {
-        _operationHandles = new();
-    }
+        [SerializeField] private SpriteRenderer[] _sprites;
+        [SerializeField] private AssetReference[] _assetReferences;
 
-    private void OnDestroy()
-    {
-        foreach (var operationHandle in _operationHandles)
+        private List<AsyncOperationHandle> _operationHandles;
+
+        private void Start()
         {
-            Addressables.Release(operationHandle);
+            _operationHandles = new();
         }
-    }
 
-    public void LoadSprite()
-    {
-
-        for (int i = 0; i < _sprites.Length; i++)
+        private void OnDestroy()
         {
-            LoadSpriteAsync(_sprites[i], i).Forget();
+            foreach (var operationHandle in _operationHandles)
+            {
+                Addressables.Release(operationHandle);
+            }
         }
-    }
+
+        public void LoadSprite()
+        {
+
+            for (int i = 0; i < _sprites.Length; i++)
+            {
+                LoadSpriteAsync(_sprites[i], i).Forget();
+            }
+        }
     
-    private async UniTask LoadSpriteAsync(SpriteRenderer spriteRenderer, int number)
-    {
-        var loadOperation = Addressables.LoadAssetAsync<Sprite>(_assetReferences[number]);
-        await loadOperation.ToUniTask();
+        private async UniTask LoadSpriteAsync(SpriteRenderer spriteRenderer, int number)
+        {
+            var loadOperation = Addressables.LoadAssetAsync<Sprite>(_assetReferences[number]);
+            await loadOperation.ToUniTask();
         
-        _operationHandles.Add(loadOperation);
+            _operationHandles.Add(loadOperation);
         
-        spriteRenderer.sprite = loadOperation.Result;
+            spriteRenderer.sprite = loadOperation.Result;
+        }
     }
 }
