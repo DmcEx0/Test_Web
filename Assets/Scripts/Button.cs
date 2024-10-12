@@ -15,6 +15,6 @@ public class Button : MonoBehaviour, IPointerClickHandler
         Debug.Log("Click");
         
         _animator.SetBool(_animationHash, true);
-        _loadSprites.load();
+        _loadSprites.Load();
     }
 }
