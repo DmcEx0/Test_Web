@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -28,7 +29,6 @@ namespace TestWeb
 
         public void LoadSprite()
         {
-
             for (int i = 0; i < _sprites.Length; i++)
             {
                 LoadSpriteAsync(_sprites[i], i).Forget();
@@ -38,7 +38,7 @@ namespace TestWeb
         private async UniTask LoadSpriteAsync(SpriteRenderer spriteRenderer, int number)
         {
             var loadOperation = Addressables.LoadAssetAsync<Sprite>(_assetReferences[number]);
-            await loadOperation.ToUniTask();
+            await loadOperation.WithCancellation(this.GetCancellationTokenOnDestroy());
         
             _operationHandles.Add(loadOperation);
         
